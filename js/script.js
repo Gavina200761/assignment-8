@@ -37,3 +37,42 @@ questionBlocks.forEach(function(block, index) {
         });
     });
 });
+
+/*This is the JavaScript Logic that retrieves user's selected answers, Tallies answers based on scoring logic,
+determines the final result, and updates the result-container*/
+
+function displayResults() {
+    const count = {
+        metal: 0,
+        rap: 0,
+        pop: 0,
+        orchestra: 0
+    };
+    for (let q in userInput) {
+        let answer = userInput[q];
+        count[answer] += 1;
+    }
+
+    let topGenre = null;
+    let maxCount = -1;
+
+    for (let genre in count) {
+        if (count[genre] > maxCount) {
+            maxCount = count[genre];
+            topGenre = genre;
+        }
+    }
+
+    const resultMessages = {
+        pop: "You're a Pop Concert Fan!",
+        rap: "You’re all about the Rap Scene!",
+        metal: "Metal is your vibe!",
+        orchestra: "You belong in an Orchestra Concert."
+    };
+
+    document.getElementById("result-text").textContent = resultMessages[topGenre];
+    document.getElementById("result-container").style.display = "block";
+
+};
+document.getElementById("show-result").addEventListener("click", displayResults);
+console.log("You may have to scroll down to see the results.");
